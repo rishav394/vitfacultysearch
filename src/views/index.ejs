@@ -1,0 +1,110 @@
+<html lang="en">
+
+	<head>
+		<%- include head.ejs %>
+		<style>
+			.section {
+				padding-top: 4vw;
+				padding-bottom: 4vw
+			}
+
+			.nav-wrapper {
+				display: flex;
+				flex-wrap: wrap;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<%- include nav.ejs %>
+
+		<!-- Search -->
+		<div class="row section container flow-text">
+			<div class="col s12 l5">
+				<form action="/" method="POST">
+					<div class="input-field">
+						<i class="material-icons prefix">person_outline</i>
+						<input type="text" id="name" name="name" pattern=".{3,}" title="Should be atleast 3 letters">
+						<label for="name">By name</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">mail_outline</i>
+						<input type="text" id="email" name="email" pattern=".{3,}" title="Should be atleast 3 letters">
+
+						<label for="email">By VIT email</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">domain</i>
+						<input type="text" id="cabin" name="cabin" pattern=".{2,}" title="Should be atleast 2 letters">
+
+						<label for="cabin">By cabin number</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">timeline</i>
+						<input type="text" id="designation" name="designation" pattern=".{7,}" title="Should be atleast 7 letters">
+
+						<label for="designation">By designation</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">turned_in_not</i>
+						<input type="text" id="empid" name="empid" pattern=".{2,}" title="Should be atleast 2 letters">
+
+						<label for="empid">By Employee ID</label>
+					</div>
+					<div class="input-field center" id="search">
+						<button class="waves-effect waves-light btn light-blue darken-4" type="submit">Submit
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- USE COLLAPSIBLE INSTEAD OF TABLE -->
+			<!-- USE POST TO DISPLAY RESULTS IN THE SAME PAGE VIA A MODEL OR COLLAPSIBLE RESULT -->
+			<div class="col s12 l6 offset-l1">
+				<table class="fa-border striped">
+					<thead>
+						<tr>
+							<th data-field="id">Empid</th>
+							<th data-field="name">Name</th>
+							<th data-field="details">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% var less = Math.min(results.length,15) %>
+						<% for(var i =0 ; i<less; i++){ %>
+						<tr>
+							<td><%= results[i].empId %></td>
+							<td><%= results[i].name %></td>
+							<td><a href="details/<%= results[i].empId %>"><i class="material-icons prefix">add</i></a>
+							</td>
+						</tr>
+						<% } %>
+					</tbody>
+				</table>
+				<div class="grey-text">
+					<h6>
+						<i>Showing <%= less %> of <%= results.length %> results</i>
+					</h6>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="materialize.min.js"></script>
+		<script src="jquery.min.js"></script>
+		<script>
+			$(document).ready(function () {
+				$(document).bind('contextmenu', function (e) {
+					e.preventDefault();
+				});
+				$(document).keydown(function (e) {
+					if (e.which === 123) {
+						return false;
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

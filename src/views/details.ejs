@@ -1,0 +1,59 @@
+<html lang="en">
+
+	<head>
+		<%- include head.ejs %>
+		<%- include detailsStyle.ejs %>
+	</head>
+
+	<body>
+		<%- include nav.ejs %>
+
+		<!-- Panel -->
+		<%- include panel.ejs %>
+
+		<!-- Time Table -->
+		<%- include timeTable.ejs %>
+
+		<div class="container">
+			<div id="disqus_thread"></div>
+			<script>
+				var disqus_config = function () {
+					this.page.url = 'https://vitfacultysearch.herokuapp.com/<%= url %>';
+					this.page.identifier = '<%= url %>';
+				};
+				(function () { // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = 'https://vitfacultysearch.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+					Disqus.</a></noscript>
+		</div>
+		<script src="../jquery.min.js"></script>
+		<script src="../materialize.min.js"></script>
+		<script>
+			$(document).ready(function () {
+				<% mydata.whenwherewhat.forEach(item => { %>
+				$('td.<%= item.SLOT %>').css("background-color", "#CCFF33");
+				$('td.<%= item.SLOT %>').append('<br>', '<%= item.VENUE  %><br><%= item.COURSECODE%>');
+				$('td.<%= item.SLOT %>').addClass('tooltipped')
+				$('td.<%= item.SLOT %>').attr('data-position', 'bottom')
+				$('td.<%= item.SLOT %>').attr('data-tooltip', '<%=item.COURSETITLE%>')
+					<% }); %>
+
+						$('.tooltipped').tooltip();
+				$(document).bind('contextmenu', function (e) {
+					e.preventDefault();
+				});
+				$(document).keydown(function (e) {
+					if (e.which === 123) {
+						return false;
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

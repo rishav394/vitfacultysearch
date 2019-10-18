@@ -1,0 +1,29 @@
+<html lang="en">
+
+	<head>
+		<%- include head.ejs %>
+	</head>
+
+	<body>
+		<%- include nav.ejs %>
+
+		<div class="container">
+			<h4 class="center">The requested Employee with Employee ID <%= empId %> was not found in my database. </h4>
+			<p class="center">If you are certain
+				that I have made a
+				mistake or my database is not updated feel free to contact me at <code>rishav394@gmail.com</code></p>
+		</div>
+
+		<div class="container">
+			<div class="input-field center" id="search">
+				<a href="/" class="waves-effect waves-light btn light-blue darken-4">
+					<i class="material-icons left">home</i>
+					Home</a>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	</body>
+
+</html>
