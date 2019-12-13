@@ -11,7 +11,7 @@ ncp(src, destination, function(err) {
 	if (err) {
 		return console.error(err);
 	}
-	files.forEach((file) => {
+	files.forEach(file => {
 		fs.copyFileSync(path.join(parent, file), path.join(destination, file));
 	});
 	console.log('done!');

@@ -7,7 +7,7 @@ const pythonProcess = spawn('python', [file], {
 	cwd: __dirname,
 });
 
-pythonProcess.stdout.on('data', (data) => {
+pythonProcess.stdout.on('data', data => {
 	console.log(data.toString());
 });
 

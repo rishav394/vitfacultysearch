@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
 		}
 	}
 	if (greenLight) {
-		faculty.find(req.body, (results) => {
+		faculty.find(req.body, results => {
 			res.render('index', {
 				results: results,
 			});
@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/details/:empId', (req, res) => {
-	faculty.findByEmpid(req.params.empId, (callbackResult) => {
+	faculty.findByEmpid(req.params.empId, callbackResult => {
 		if (callbackResult == null) {
 			res.render('emp404', {
 				empId: req.params.empId,

@@ -17,9 +17,7 @@ module.exports = {
 				element.name.includes(faculty_json.name) &&
 				element.email.includes(faculty_json.email) &&
 				element.cabin.includes(faculty_json.cabin) &&
-				element.designation
-					.toLowerCase()
-					.includes(faculty_json.designation) &&
+				element.designation.toLowerCase().includes(faculty_json.designation) &&
 				element.empId.toUpperCase().includes(faculty_json.empid)
 			) {
 				tosend.push(element);
