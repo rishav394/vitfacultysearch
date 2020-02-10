@@ -6,7 +6,6 @@
 				"source": "**",
 				"function": "app"
 			}
-		],
-		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+		]
 	}
 }

@@ -16,7 +16,7 @@
   }
 
   .container table {
-    border: 1px solid #3c8dbc;
+    border: 2px solid #3c8dbc;
     text-align: center;
     font-size: 15px;
     width: 100%;
@@ -46,12 +46,15 @@
     background-color: #FFFFCC;
   }
 
-  @media only screen and (max-width: 880px) {
+  @media only screen and (max-width: 1300px) {
     table.timetable {
       display: block;
-      overflow-x: auto;
-      white-space: nowrap;
     }
+  }
+
+  table.timetable {
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   td a {

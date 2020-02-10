@@ -9,6 +9,8 @@ with open('allocationReport.json', 'r') as target:
     content = target.read()
     allocationReport_backup = json.loads(content)
     content = content.replace('\\n', ' ')
+    content = content.replace('\\r', ' ')
+    content = content.replace('\\t', ' ')
     content = json.loads(content)
 
 with open('allocationReport.json', 'w') as target:
