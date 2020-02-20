@@ -9,6 +9,12 @@
 			"request": "launch",
 			"name": "Launch Program",
 			"program": "${workspaceFolder}\\src\\server.js"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug conversion",
+			"program": "${workspaceFolder}\\util\\conversions.js"
 		}
 	]
 }

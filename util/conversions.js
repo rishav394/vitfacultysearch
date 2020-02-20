@@ -1,26 +1,72 @@
-const path = require('path');
-const fs = require('fs');
-const spawn = require('child_process').spawn;
-const file = path.join(__dirname, 'conversions.py');
+var courses = require('./allocationReport.json');
+var faculties = require('./faculties.json');
 
-const pythonProcess = spawn('python', [file], {
-	cwd: __dirname,
+const load = json => {
+	var p = JSON.stringify(json);
+
+	p = p
+		.replace(/\n/g, '')
+		.replace(/\r/g, ' ')
+		.replace(/\\n/g, '')
+		.replace(/\\r/g, ' ')
+		.replace(/\s{2}/g, ' ')
+		.replace(/DR\.\s*/gi, '')
+		.replace(/D\s?R\.\s*/gi, '');
+
+	p = JSON.parse(p);
+	return p;
+};
+
+var courses = load(courses);
+var faculties = load(faculties);
+var anomaly = [];
+
+const findFaculty = (facultyName, faculties) => {
+	var answer = faculties.find(faculty =>
+		faculty['name'].trim().includes(facultyName.trim()),
+	);
+	try {
+		return answer['empId'];
+	} catch (error) {
+		anomaly.push(facultyName);
+		return 0;
+	}
+};
+
+courses = courses.filter(course => {
+	course['EMPID'] = findFaculty(course['FACULTY'], faculties);
+	return course['EMPID'] != 0;
 });
 
-pythonProcess.stdout.on('data', data => {
-	console.log(data.toString());
-});
+console.log('Total anomaly =', [...new Set(anomaly)].length);
 
-pythonProcess.on('close', (code, signal) => {
-	if (code != 0)
-		console.error(
-			'The python script returned an error. Please manually run the script, fix the errors and try again.',
+const courseOf = facultyId => {
+	return courses.filter(x => x['EMPID'] == facultyId);
+};
+
+faculties.forEach(faculty => {
+	facultyCourses = courseOf(faculty['empId']);
+	if (facultyCourses.length == 0) {
+		faculty['whenwherewhat'] = [];
+	} else {
+		facultyCourses = facultyCourses.filter(
+			fc => fc['SLOT'] != 'NIL' && fc['VENUE'] != 'NIL',
 		);
-	else {
-		fs.copyFileSync(
-			path.join(__dirname, 'facultyall.json'),
-			path.join(path.resolve(__dirname, '..'), 'src', 'facultyall.json'),
-		);
-		console.log('Copied facultyall.json successfully');
+		newFacultyCourses = [];
+		facultyCourses.forEach(fc => {
+			var slots = fc['SLOT'].split('+');
+			slots.forEach(slot => {
+				var base = {
+					SLOT: slot,
+					VENUE: fc['VENUE'],
+					COURSECODE: fc['CODE'],
+					COURSETITLE: fc['TITLE'],
+				};
+				newFacultyCourses.push(base);
+			});
+		});
+		faculty['whenwherewhat'] = newFacultyCourses;
 	}
 });
+
+module.exports = { faculties };

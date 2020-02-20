@@ -1,4 +1,4 @@
-var data = require('./facultyall.json');
+var data = require('../util/conversions').faculties;
 
 module.exports = {
 	find: function(faculty_json, callback) {

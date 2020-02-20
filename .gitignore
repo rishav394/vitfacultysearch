@@ -103,10 +103,6 @@ functions/*
 !functions/index.js
 .firebase
 
-# Build files
-src/facultyall.json
-util/facultyall.json
-
 # Faculty DataBase -- Download latest version from VTOP or FFCSOnTheGo
 # If your still need these files, feel free to contact me. Ill be happy to help.
 faculties.json
